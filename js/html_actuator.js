@@ -40,12 +40,11 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
 };
 
 // Continues the game (both restart and keep playing)
-HTMLActuator.prototype.continueGame = function () {
-  if (typeof ga !== "undefined") {
-    ga("send", "event", "game", "restart");
-  }
-
+HTMLActuator.prototype.continueGame = function (restart) {
   this.clearMessage();
+  if(typeof ga !== "undefined" && restart) {
+      ga('send', 'event', 'game', 'reset', this.score);
+  }
 };
 
 HTMLActuator.prototype.clearContainer = function (container) {
@@ -172,16 +171,18 @@ HTMLActuator.prototype.message = function (ended) {
     message = "You got a " + val2caption(window.game.maxTile) + "!";
   }
 
-  if (typeof ga !== "undefined") {
-    ga("send", "event", "game", "end", type, this.score);
-  }
-
   this.messageContainer.classList.add(type);
   this.messageContainer.getElementsByTagName("p")[0].innerHTML = message;
 
+  if (typeof ga !== "undefined") {
+    ga('send', 'event', 'game', 'end-' + window.game.maxTile, this.score);
+  }
+
   this.clearContainer(this.sharingContainer);
-  this.sharingContainer.appendChild(this.scoreTweetButton());
-  twttr.widgets.load();
+  if (typeof twttr !== "undefined") {
+    this.sharingContainer.appendChild(this.scoreTweetButton());
+    twttr.widgets.load();
+  }
 };
 
 HTMLActuator.prototype.clearMessage = function () {
@@ -197,10 +198,11 @@ HTMLActuator.prototype.scoreTweetButton = function () {
   tweet.setAttribute("data-via", "yimai_f");
   tweet.setAttribute("data-url", "http://git.io/v1k57");
   tweet.setAttribute("data-counturl", "http://ymfa.github.io/phd-2048/");
+  tweet.setAttribute("data-size", "large");
   tweet.textContent = "Tweet";
 
-  var text = "I scored " + this.score + " points at PhD 2048, a game where you " +
-             "join numbers to score high! #PhD2048";
+  var text = window.game.won ? "I got a PhD and lost " : "I didn't get a PhD and lost ";
+  text += this.score + " hairs by moving bricks! #PhD2048";
   tweet.setAttribute("data-text", text);
 
   return tweet;

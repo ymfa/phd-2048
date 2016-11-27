@@ -3,13 +3,14 @@ CACHE MANIFEST
 # Adds the ability to play the game offline.
 # The following comment needs to be updated whenever a change is made.
 # Run `rake appcache:update` to do so
-# Updated: 2015-10-20T11:14:00-08:00
+# Updated: 2016-11-27T18:36:16+00:00
 
 # Main page
 index.html
 
 # CSS
 style/main.css
+style/addtohomescreen.css
 
 # Fonts
 style/fonts/clear-sans.css
@@ -25,9 +26,14 @@ style/fonts/ClearSans-Regular-webfont.woff
 
 # Other resources
 meta/apple-touch-icon.png
-meta/icon_bitcoin.svg
-meta/icon_pp.svg
-meta/og_image.png
+meta/launcher-icon-0-75x.png
+meta/launcher-icon-1x.png
+meta/launcher-icon-1-5x.png
+meta/launcher-icon-2x.png
+meta/launcher-icon-3x.png
+meta/launcher-icon-4x.png
+meta/apple-touch-startup-image-640x1096.png
+meta/apple-touch-startup-image-640x920.png
 
 # JavaScript
 js/animframe_polyfill.js
@@ -40,6 +46,8 @@ js/html_actuator.js
 js/keyboard_input_manager.js
 js/local_storage_manager.js
 js/tile.js
+js/i18n.js
+js/addtohomescreen.min.js
 
 favicon.ico
 

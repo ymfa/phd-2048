@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" manifest="cache.appcache">
+<html manifest="cache.appcache">
 <head>
   <meta charset="utf-8">
   <title>PhD 2048: Move the bricks</title>
@@ -18,30 +18,17 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
   <meta name="format-detection" content="telephone=no" />
-
-  <meta name="apple-itunes-app" content="app-id=868076805">
-
-  <meta property="og:title" content="2048"/>
-  <meta property="og:site_name" content="2048"/>
-  <meta property="og:description" content="Join the numbers and get to the 2048 tile! Careful: this game is extremely addictive!"/>
-  <meta property="og:image" content="http://gabrielecirulli.github.io/2048/meta/og_image.png"/>
-
-  <meta name="twitter:card" content="app" />
-  <meta name="twitter:site" content="@gabrielecirulli" />
-  <meta name="twitter:title" content="2048" />
-  <meta name="twitter:description" content="Join the numbers and get to the 2048 tile! Careful: this game is extremely addictive!" />
-  <meta name="twitter:image" content="http://gabrielecirulli.github.io/2048/meta/og_image.png" />
-  <meta name="twitter:url" content="http://gabrielecirulli.github.io/2048/" />
-  <meta name="twitter:app:country" content="US">
-  <meta name="twitter:app:name:iphone" content="2048">
-  <meta name="twitter:app:id:iphone" content="868076805">
-  <meta name="twitter:app:url:iphone" content="https://itunes.apple.com/us/app/2048-by-gabriele-cirulli/id868076805">
-  <meta name="twitter:app:name:ipad" content="2048">
-  <meta name="twitter:app:id:ipad" content="868076805">
-  <meta name="twitter:app:url:ipad" content="https://itunes.apple.com/us/app/2048-by-gabriele-cirulli/id868076805">
-  <meta name="twitter:app:name:googleplay" content="2048">
-  <meta name="twitter:app:id:googleplay" content="com.gabrielecirulli.app2048">
-  <meta name="twitter:app:url:googleplay" content="https://play.google.com/store/apps/details?id=com.gabrielecirulli.app2048">
+  <meta property="og:url" content="http://ymfa.github.io/phd-2048/">
+  <meta property="og:title" content="PhD 2048: Move the bricks">
+  <meta property="og:description" content="Move the bricks to complete your PhD! Unlike in the original 2048, you may produce the frustrating bricks of Garbage until you publish a Paper.">
+  <meta property="og:image" content="http://ymfa.github.io/phd-2048/meta/apple-touch-startup-image-640x920.png">
+  <meta property="og:image:secure_url" content="https://ymfa.github.io/phd-2048/meta/apple-touch-startup-image-640x920.png">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@yimai_f" />
+  <meta name="twitter:title" content="PhD 2048" />
+  <meta name="twitter:description" content="Move the bricks to complete your PhD! Unlike in the original 2048, you may produce the frustrating bricks of Garbage until you publish a Paper." />
+  <meta name="twitter:image" content="http://ymfa.github.io/phd-2048/meta/apple-touch-startup-image-640x920.png" />
+  <meta name="twitter:url" content="http://ymfa.github.io/phd-2048/" />
 </head>
 <body>
   <div style='margin:0 auto;width:0px;height:0px;overflow:hidden;'>
@@ -59,11 +46,6 @@
     <div class="above-game">
       <p class="game-intro">Move the bricks to complete your PhD.</p>
       <a class="restart-button">退学</a>
-    </div>
-
-    <div class="app-notice">
-      <span class="notice-close-button">x</span>
-      <p><strong class="important">New:</strong> Get the new 2048 app for <a href="https://itunes.apple.com/us/app/2048-by-gabriele-cirulli/id868076805" target="_blank">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.gabrielecirulli.app2048" target="_blank">Android!</a></p>
     </div>
 
     <div class="game-container">
@@ -115,19 +97,8 @@
     <div style="line-height:1.65">
     <strong class="important">Note:</strong> This is a fork of <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli</a>'s <a href="https://github.com/gabrielecirulli/2048" target="_blank">2048</a>, by <a href="https://github.com/ymfa" target="_blank">Yimai Fang</a>.
     </div>
-    <div class="sharing">
-      <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out 2048, a game where you join numbers to score high! #2048game" data-via="gabrielecirulli" data-url="http://git.io/2048" data-counturl="http://gabrielecirulli.github.io/2048/">Tweet</a>
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-    </div>
+    <div class="share-tw" style="display:inline-block;position:relative;top:8px;"><a href="https://twitter.com/intent/tweet?button_hashtag=PhD2048" class="twitter-hashtag-button" data-size="large" data-url="http://git.io/v1k57" data-counturl="http://ymfa.github.io/phd-2048/" data-show-count="false" data-via="yimai_f" data-text="Moving bricks is so much fun: ">Tweet #PhD2048</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div>
   </div>
-  <script src="js/addtohomescreen.min.js"></script>
-  <script>
-      addToHomescreen({
-        appID: 'io.github.ymfa.phd2048',
-        skipFirstVisit: true,
-        maxDisplayCount: 1
-      });
-  </script>
   <script src="js/bind_polyfill.js"></script>
   <script src="js/classlist_polyfill.js"></script>
   <script src="js/animframe_polyfill.js"></script>
@@ -139,15 +110,19 @@
   <script src="js/game_manager.js"></script>
   <script src="js/i18n.js"></script>
   <script src="js/application.js"></script>
-
+  <script src="js/addtohomescreen.min.js"></script>
   <script>
-    (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,"script","//www.google-analytics.com/analytics.js","ga");
-
-    ga("create", "UA-42620757-2", "gabrielecirulli.github.io");
-    ga("send", "pageview");
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-88082187-1', 'auto');
+  ga('send', 'pageview');
+  addToHomescreen({
+    appID: 'io.github.ymfa.phd2048',
+    skipFirstVisit: true,
+    maxDisplayCount: 1
+  });
   </script>
 </body>
 </html>

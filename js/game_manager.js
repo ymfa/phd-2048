@@ -5,6 +5,7 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.actuator       = new Actuator;
 
   this.startTiles     = 2;
+  this.relDuration    = 10; // Duration (sec) of a relationship
 
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
@@ -43,15 +44,35 @@ GameManager.prototype.setup = function () {
     this.over        = previousState.over;
     this.won         = previousState.won;
     this.keepPlaying = previousState.keepPlaying;
+    this.maxTile     = previousState.maxTile || 4;
+    this.garbCount   = previousState.garbCount || 0;
+    this.karma       = previousState.karma || 0;
+    this.relTime     = previousState.relTime || null;
+    if(this.relTime){
+      if((new Date().getTime()-this.relTime)/1000 > this.relDuration){
+        this.relTime = null;
+        if(this.karma <= 0){
+          var changes = this.grid.clearRelationship(true);
+          this.garbCount += changes;
+        }
+      }
+      else
+        this.setTimer();
+    }
   } else {
     this.grid        = new Grid(this.size);
     this.score       = 0;
     this.over        = false;
     this.won         = false;
     this.keepPlaying = false;
+    this.maxTile     = 4;
+    this.garbCount   = 0;
+    this.karma       = 0;
+    this.relTime     = null;
 
     // Add the initial tiles
     this.addStartTiles();
+    //window.history.pushState("new-game", "", ".");
   }
 
   // Update the actuator
@@ -67,8 +88,18 @@ GameManager.prototype.addStartTiles = function () {
 
 // Adds a tile in a random position
 GameManager.prototype.addRandomTile = function () {
-  if (this.grid.cellsAvailable()) {
-    var value = Math.random() < 0.9 ? 2 : 4;
+  var numCellsAvailable = this.grid.availableCells().length;
+  if (numCellsAvailable > 0) {
+    var coin = Math.random();
+    var p = 0.003;
+    if(this.maxTile >= 1024) p = 0.001;
+    else if(this.maxTile >= 256) p = 0.002;
+    var value = coin < 0.9 ? 2 : 4;
+    if(this.karma == 0 && this.relTime == null && numCellsAvailable > 1 && numCellsAvailable < 10 && coin >= 0.9-9*p && coin < 0.9+p){
+      value = 1;
+      this.relTime = new Date().getTime();
+      this.setTimer();
+    }
     var tile = new Tile(this.grid.randomAvailableCell(), value);
 
     this.grid.insertTile(tile);
@@ -105,7 +136,11 @@ GameManager.prototype.serialize = function () {
     score:       this.score,
     over:        this.over,
     won:         this.won,
-    keepPlaying: this.keepPlaying
+    keepPlaying: this.keepPlaying,
+    maxTile:     this.maxTile,
+    garbCount:   this.garbCount,
+    karma:       this.karma,
+    relTime:     this.relTime
   };
 };
 
@@ -152,23 +187,65 @@ GameManager.prototype.move = function (direction) {
         var positions = self.findFarthestPosition(cell, vector);
         var next      = self.grid.cellContent(positions.next);
 
-        // Only one merger per row traversal?
-        if (next && next.value === tile.value && !next.mergedFrom) {
-          var merged = new Tile(positions.next, tile.value * 2);
-          merged.mergedFrom = [tile, next];
+        if (tile.value == 0) {  // Sticky garbage
+          var lazyPosition = self.averagePosition(positions.farthest, cell);
+          if (!self.positionsEqual(lazyPosition, positions.farthest)) {
+            positions.farthest = lazyPosition;
+            next = null;
+          }
+        }
 
-          self.grid.insertTile(merged);
+        if (tile.value == 1 && next) {
+          self.moveTile(tile, positions.farthest);
+          if (self.relTime) {
+            if (next.benefitedFrom != self.relTime) {
+              next.value *= 2;
+              if (next.value > self.maxTile) self.maxTile = next.value;
+              if (next.value >= 2048) self.won = true;
+              next.benefitedFrom = self.relTime;
+              self.karma++;
+              moved = true;
+            }
+          }
+          else {
+            if (next.value >= 4){
+              next.value /= 2;
+              self.karma--;
+              if (self.karma <= 0) self.grid.clearRelationship(false);
+              moved = true;
+            }
+          }
+        }
+        else if (next && next.value === tile.value && !next.mergedFrom) {
+          if(next.value != 0) {
+            if((self.maxTile < 256 || self.garbCount % 2 > 0)
+              && ((next.value == 8 && Math.random() >= 0.8)
+              || (next.value == 128 && Math.random() >= 0.85))) {
+              var merged = new Tile(positions.next, 0);
+              self.garbCount++;
+            }
+            else {
+              var merged = new Tile(positions.next, tile.value * 2);
+              merged.benefitedFrom = tile.benefitedFrom;
+              if(next.benefitedFrom > merged.benefitedFrom) merged.benefitedFrom = next.benefitedFrom;
+            }
+            merged.mergedFrom = [tile, next];
+            self.grid.insertTile(merged);
+            self.score += merged.value;
+            if (merged.value > self.maxTile) self.maxTile = merged.value;
+            if (merged.value === 2048) self.won = true;
+          }
+          else {
+            self.grid.removeTile(next);
+            self.garbCount -= 2;
+          }
+
           self.grid.removeTile(tile);
 
           // Converge the two tiles' positions
           tile.updatePosition(positions.next);
-
-          // Update the score
-          self.score += merged.value;
-
-          // The mighty 2048 tile
-          if (merged.value === 2048) self.won = true;
-        } else {
+        }
+        else {
           self.moveTile(tile, positions.farthest);
         }
 
@@ -269,4 +346,41 @@ GameManager.prototype.tileMatchesAvailable = function () {
 
 GameManager.prototype.positionsEqual = function (first, second) {
   return first.x === second.x && first.y === second.y;
+};
+
+GameManager.prototype.averagePosition = function (first, second) {
+  var x = (first.x + second.x) / 2;
+  var y = (first.y + second.y) / 2;
+  if (x%1 != 0) x = Math.random()<x%1 ? Math.ceil(x) : Math.floor(x);
+  if (y%1 != 0) y = Math.random()<y%1 ? Math.ceil(y) : Math.floor(y);
+  return { x: x, y: y };
+};
+
+GameManager.prototype.setTimer = function () {
+  var self = this;
+  this.timer = setInterval(function(){
+    var elapsed = (new Date().getTime() - self.relTime) / 1000;
+    if(elapsed >= self.relDuration){
+      self.unsetTimer();
+      self.actuator.refreshRel(0);
+    }
+    else{
+      self.actuator.refreshRel(Math.round(self.relDuration - elapsed));
+    }
+  }, 1000);
+};
+
+GameManager.prototype.unsetTimer = function () {
+  this.relTime = null;
+  if(this.timer){
+    clearInterval(this.timer);
+    delete this.timer;
+  }
+  if(this.karma <= 0){
+    var changes = this.grid.clearRelationship(true);
+    if(changes){
+      this.garbCount += changes;
+      this.actuate();
+    }
+  }
 };

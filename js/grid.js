@@ -25,8 +25,13 @@ Grid.prototype.fromState = function (state) {
     var row = cells[x] = [];
 
     for (var y = 0; y < this.size; y++) {
-      var tile = state[x][y];
-      row.push(tile ? new Tile(tile.position, tile.value) : null);
+      var tileInfo = state[x][y];
+      if (tileInfo){
+        var tile = new Tile(tileInfo.position, tileInfo.value);
+        tile.benefitedFrom = tileInfo.benefitedFrom;
+      }
+      else var tile = null;
+      row.push(tile);
     }
   }
 
@@ -115,3 +120,18 @@ Grid.prototype.serialize = function () {
     cells: cellState
   };
 };
+
+Grid.prototype.clearRelationship = function (createGarbage) {
+  var changes = 0;
+  for(var col = 0; col < this.size; col++){
+    for(var row = 0; row < this.size; row++){
+      var tile = this.cells[col][row];
+      if(tile && tile.value == 1){
+        if(createGarbage) tile.value = 0;
+        else this.removeTile(tile);
+        changes++;
+      }
+    }
+  }
+  return changes;
+}

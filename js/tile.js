@@ -1,10 +1,11 @@
 function Tile(position, value) {
   this.x                = position.x;
   this.y                = position.y;
-  this.value            = value || 2;
+  this.value            = value;
 
   this.previousPosition = null;
   this.mergedFrom       = null; // Tracks tiles that merged together
+  this.benefitedFrom    = null; // TS of the relationship it benefited from
 }
 
 Tile.prototype.savePosition = function () {
@@ -22,6 +23,7 @@ Tile.prototype.serialize = function () {
       x: this.x,
       y: this.y
     },
-    value: this.value
+    value: this.value,
+    benefitedFrom: this.benefitedFrom
   };
 };

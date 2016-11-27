@@ -19,4 +19,4 @@ Feel free to fork and create your own version of 2048. A few suggestions on what
 - I have to make changes directly to `main.css` instead of `main.scss`, because an SASS compilation of the original `main.scss` does not reproduce the original `main.css`.
 
 ### License
-PhD 2048 is licensed under the MIT license.
+PhD 2048 is licensed under [the MIT license](https://github.com/ymfa/phd-2048/blob/master/LICENSE.txt).

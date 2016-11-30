@@ -54,8 +54,10 @@ var captions = ["Coffee", "Panini",
   "实验", "Paper", "会议", "答辩", "PhD",
   "薄厚", "僵尸", "Reader", "叫兽"];
 var game_title = "磗士";
+var game_alt_title = "爱";
 var caption_garbage = "垃圾";
 var captions_rel = ["恋爱", "分手"];
+var result_msg = "你得到了";
 
 var val2caption = function(val){
   if(val <= 0) return caption_garbage;
@@ -158,13 +160,13 @@ HTMLActuator.prototype.updateBestScore = function (bestScore) {
 
 HTMLActuator.prototype.message = function (ended) {
   var type    = ended ? "game-won" : "game-over";
-  var message = window.game.won ? "You got a PhD!" : "You got a <abbr title='Certificate of Postgraduate Studies'>CPGS</abbr>!";
+  var message = window.game.won ? result_msg + "PhD!" : result_msg + "<abbr title='Certificate of Postgraduate Studies'>CPGS</abbr>!";
   if(!window.game.won) {
     if(window.game.maxTile >= 1024) message = "One step away!";
     else if(window.game.maxTile >= 512) message = "Not bad!";
   }
   else if(window.game.maxTile > 2048) {
-    message = "You got a " + val2caption(window.game.maxTile) + "!";
+    message = result_msg + val2caption(window.game.maxTile) + "!";
   }
 
   this.messageContainer.classList.add(type);
@@ -179,9 +181,9 @@ HTMLActuator.prototype.clearMessage = function () {
 
 HTMLActuator.prototype.refreshRel = function (remainingTime) {
   if(remainingTime > 0){
-    this.titleBar.textContent = "Love";
+    this.titleBar.textContent = game_alt_title;
     this.statusBar.textContent = "Your relationship will last for "+remainingTime+"s.";
-    this.progressBar.textContent = "Love";
+    this.progressBar.textContent = game_alt_title;
     this.progressBar.style.display = "";
     if(window.innerWidth < 520)
       this.progressBar.style.width = Math.round(100*remainingTime/window.game.relDuration) + "px";

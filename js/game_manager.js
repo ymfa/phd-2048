@@ -313,7 +313,7 @@ GameManager.prototype.findFarthestPosition = function (cell, vector) {
 };
 
 GameManager.prototype.movesAvailable = function () {
-  return this.grid.cellsAvailable() || this.tileMatchesAvailable();
+  return this.relTime || this.grid.cellsAvailable() || this.tileMatchesAvailable();
 };
 
 // Check for available matches between tiles (more expensive check)
@@ -333,8 +333,8 @@ GameManager.prototype.tileMatchesAvailable = function () {
 
           var other  = self.grid.cellContent(cell);
 
-          if (other && other.value === tile.value) {
-            return true; // These two tiles can be merged
+          if (other && (other.value === tile.value || (tile.value == 1 && other.value > 2))) {
+            return true;
           }
         }
       }
@@ -382,5 +382,9 @@ GameManager.prototype.unsetTimer = function () {
       this.garbCount += changes;
       this.actuate();
     }
+  }
+  if (!this.movesAvailable()) {  // Determine game over when relationship ends
+    this.over = true;
+    this.actuate();
   }
 };

@@ -20,4 +20,4 @@ Therefore you should use the `master` branch rather than `gh-pages`, and add you
 - I have to make changes directly to `main.css` instead of `main.scss`, because compiling the original `main.scss` does not reproduce the original `main.css`.
 
 ### License
-PhD 2048 is licensed under [the MIT license](https://github.com/ymfa/phd-2048/blob/master/LICENSE.txt).
+PhD 2048 is licensed under the [GNU General Public License](https://github.com/ymfa/phd-2048/blob/master/LICENSE.txt).

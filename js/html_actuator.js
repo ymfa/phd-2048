@@ -53,6 +53,18 @@ HTMLActuator.prototype.clearContainer = function (container) {
   }
 };
 
+if (!String.prototype.format) {
+  String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) {
+      return typeof args[number] != 'undefined'
+        ? args[number]
+        : match
+      ;
+    });
+  };
+}
+
 var val2caption = function(val){
   if(val <= 0) return caption_garbage;
   if(val == 1){
@@ -72,6 +84,17 @@ var val2caption = function(val){
     return captions[idx];
   else
     return val;
+};
+
+var val2tweet = function(val){
+  if(val <= 64) return tweets[0];
+  var idx = -1; var max_idx = tweets.length-1;
+  var n = 32;
+  while(n < val && idx < max_idx) {
+    n <<= 1;
+    idx++;
+  }
+  return tweets[idx];
 };
 
 HTMLActuator.prototype.addTile = function (tile) {
@@ -193,8 +216,7 @@ HTMLActuator.prototype.scoreTweetButton = function () {
   tweet.setAttribute("data-size", "large");
   tweet.textContent = "Tweet";
 
-  var text = window.game.won ? "I got a PhD and lost " : "I didn't get a PhD and lost ";
-  text += this.score + " hairs by moving bricks! #PhD2048";
+  var text = val2tweet(window.game.maxTile).format(this.score);
   tweet.setAttribute("data-text", text);
 
   return tweet;

@@ -83,6 +83,13 @@ function play_in_english(){
   document.querySelector('.retry-button').textContent = "Try again";
   document.querySelector('.game-explanation').innerHTML = "<strong class='important'>How to play:</strong> Use your <strong>arrow keys</strong> to move the bricks. When two bricks of the same type touch, they <strong>merge into one!</strong><br>However, your ideas and experiments may not always work &mdash; they may produce the sticky <strong>garbage</strong>, which is resistant to moves. Two garbage bricks vanish when they touch. You will stop producing garbage after getting a <strong>paper</strong> (except for one more piece to help you eliminate any existing garbage).<br>A <strong>relationship</strong> upgrades any brick it touches for the first time. The brick shows the number of times you have benefited from it. When the 10-sec relationship ends, it will become a <strong>break-up</strong> (or garbage if you didn't use it), which downgrades bricks until you have repaid the benefits.";
 
+  tweets = ["I lost {0} hairs in #PhD2048 and didn't win. Lose hairs or lose your life!",
+            "Didn't get a paper out of my #PhD2048 experiment. Can I sell my {0} hairs?",
+            "Still too far from my PhD, even though I published about how to play #PhD2048 😂",
+            "DeepTravelling to conferences must be the best part of #PhD2048 😂",
+            "Do not talk to me. I failed my viva in #PhD2048 😂",
+            "#PhD2048 I got my PhD by losing only {0} hairs 😂"];
+
   if(span_en) span_en.parentNode.removeChild(span_en);
   create_switch_zh();
   window.game.storageManager.storage.setItem('lang', 'en');
@@ -131,6 +138,13 @@ function use_simplified(){
   document.querySelector('.restart-button').textContent = "退学";
   document.querySelector('.retry-button').textContent = "善";
   document.querySelector('.game-explanation').innerHTML = "<strong class='important'>玩法:</strong> 使用方向键搬砖. 当两块相同的砖碰在一起时, <strong>它们会组成一块更好的砖</strong>! <br>但是, 你的想法和实验也可能只是产生<strong>垃圾</strong>. 黏着的垃圾会阻碍砖块的移动, 直到被别的垃圾击中而消失. 你得到 <strong>paper</strong> 以后便不会再产生垃圾, 最多再来一块帮你清除别的垃圾.<br><strong>恋爱</strong>砖触碰任何砖都能使其升级, 但一块砖只可享受一次. 恋爱砖上会显示你使用它的次数; 10 秒后它会变成<strong>分手</strong>砖, 触碰任何砖都能使其降级, 以此来偿还之前使用的次数.";
+
+  tweets = ["#PhD2048 一言不合就退学！才掉{0}根头发，青山在，蛤未老，蛤未老。",
+            "#PhD2048 好不容易做出了实验，结果连文章都发不出，头发掉了{0}根能换篇文章吗？",
+            "#PhD2048 谁说有文章就能毕业的？头发已掉{0}根 😂",
+            "#PhD2048 醉翁之意不在 PhD，只求学术会议深度游。头发已掉{0}根 😂",
+            "#PhD2048 PhD 都熬到答辩了，还是续不下去了。头发已掉{0}根 😂",
+            "#PhD2048 只掉了{0}根头发的我终于用咖啡和爬妮妮堆出了一个 PhD 😂"];
 }
 
 function use_traditional(){
@@ -146,6 +160,13 @@ function use_traditional(){
   document.querySelector('.restart-button').textContent = "退學";
   document.querySelector('.retry-button').textContent = "善";
   document.querySelector('.game-explanation').innerHTML = "<strong class='important'>玩法：</strong>用方向鍵搬磚。當兩塊相同的磚碰在一起時，<strong>它們會併成一塊更好的磚</strong>！<br>但是，你的想法和實驗可能只是產生<strong>垃圾</strong>而已。黏在地上的垃圾會阻礙磚塊移動，直到被別的垃圾擊中而消失。你得到 <strong>paper</strong> 以後便不會再產生垃圾，最多再出一塊幫你清除場上剩下的垃圾。<br><strong>戀愛</strong>磚觸碰任何磚都能使其升級，但一塊磚只得升級一次。戀愛磚上會顯示你用它的次數。10 秒後它會變成<strong>分手</strong>磚，觸碰任何磚都能使其降級，以此來償還之前使用的次數。";
+
+  tweets = ["#PhD2048 一言不合就退學！才掉{0}根頭髮果然不夠，要繼續努力。",
+            "#PhD2048 實驗是有了，頭髮掉了{0}根能換來一篇文章嗎？",
+            "#PhD2048 誰說有文章就能畢業的？頭髮已掉{0}根 😂",
+            "#PhD2048 醉翁之意不在 PhD，只求學術會議深度游。頭髮已掉{0}根 😂",
+            "#PhD2048 PhD 都熬到答辯了，沒想到還是跪了。頭髮已掉{0}根 😂",
+            "#PhD2048 只掉了{0}根頭髮的我終於用咖啡和叭呢呢堆積出一個 PhD 😂"];
 
   document.body.style.fontFamily = '"Clear Sans", "Helvetica Neue", Arial, "Hiragino Sans CNS", "PingFang TC", "Microsoft JhengHei", "Source Han Sans TC", "Noto Sans CJK TC", sans-serif';
 }

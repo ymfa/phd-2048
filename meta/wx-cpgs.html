@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>一言不合就退学 😂</title>
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="apple-touch-startup-image" href="apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
+  <link rel="apple-touch-startup-image" href="apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <p id="instruction" style="display:none;font-size:large">
+  要把你的游戏结果分享到朋友圈，请现在使用右上角微信的功能菜单。<br><br>完成后，点按<a href="//ymfa.github.io/phd-2048/" style="font-weight:bold">这儿</a>继续游戏。<br><br><br>
+  You can now share your results using the menu provided by WeChat (located in the upper right corner).<br><br>When you are done, press <a href="//ymfa.github.io/phd-2048/" style="font-weight:bold">here</a> to continue playing.
+  </p>
+  <p id="redirect"><a href="//ymfa.github.io/phd-2048/">Redirecting...</a></p>
+  <script>
+    if(sessionStorage.getItem('open-share') != 'yes') {
+      window.location = "//ymfa.github.io/phd-2048/";
+    }
+    else {
+      document.getElementById('instruction').style.display = "";
+      document.getElementById('redirect').style.display = "none";
+      sessionStorage.removeItem('open-share');
+    }
+  </script>
+  <div style='margin:0 auto;width:0px;height:0px;overflow:hidden;'>
+    <img src="r-cpgs-640x920.png" width='640'>
+  </div>
+</body>
+</html>

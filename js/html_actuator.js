@@ -194,7 +194,10 @@ HTMLActuator.prototype.message = function (ended) {
   }
 
   this.clearContainer(this.sharingContainer);
-  if (typeof twttr !== "undefined") {
+  if (in_wechat) {
+    this.sharingContainer.appendChild(this.scoreWeChatButton());
+  }
+  else if (typeof twttr !== "undefined") {
     this.sharingContainer.appendChild(this.scoreTweetButton());
     twttr.widgets.load();
   }
@@ -220,6 +223,21 @@ HTMLActuator.prototype.scoreTweetButton = function () {
   tweet.setAttribute("data-text", text);
 
   return tweet;
+};
+
+HTMLActuator.prototype.scoreWeChatButton = function () {
+  var wx = document.createElement("a");
+  wx.textContent = "发布到朋友圈";
+  wx.addEventListener('touchend', function () {
+    sessionStorage.setItem('open-share', 'yes');
+    var maxTile = window.game.maxTile;
+    var page = maxTile.toString();
+    if (maxTile >= 2048) page = "phd";
+    else if(maxTile < 128) page = "cpgs";
+    window.location = "meta/wx-" + page + ".html";
+  });
+
+  return wx;
 };
 
 HTMLActuator.prototype.refreshRel = function (remainingTime) {

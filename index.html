@@ -34,6 +34,21 @@
   <div style='margin:0 auto;width:0px;height:0px;overflow:hidden;'>
     <img src="meta/apple-touch-startup-image-640x920.png" width='640'>
   </div>
+  <div id="fb-root"></div>
+  <script>
+  var in_wechat = false;
+  if (navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger") {
+    in_wechat = true;
+  }
+  else {
+    var fb_script = document.createElement("script");
+    fb_script.async = true;
+    fb_script.defer = true;
+    fb_script.crossOrigin = "anonymous";
+    fb_script.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=1660695570887581&autoLogAppEvents=1";
+    document.body.append(fb_script);
+  }
+  </script>
   <div class="container">
     <div class="heading">
       <h1 class="title"><div style='position:relative;height:0;width: 0;'><div id='progress'></div></div><span id='title'>PhD</span></h1>
@@ -97,7 +112,9 @@
     <div style="line-height:1.65">
     Fork <a href="https://github.com/ymfa/phd-2048" target="_blank">this game</a> on GitHub!
     </div>
+    <div class="fb-share-button" data-href="https://ymfa.github.io/phd-2048/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fymfa.github.io%2Fphd-2048%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
     <div class="share-tw" style="display:inline-block;position:relative;top:8px;"><a href="https://twitter.com/intent/tweet?button_hashtag=PhD2048" class="twitter-hashtag-button" data-size="large" data-url="http://git.io/v1k57" data-counturl="http://ymfa.github.io/phd-2048/" data-show-count="false" data-via="yimai_f" data-text="Moving bricks is so much fun: ">Tweet #PhD2048</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div>
+    <span id="wx-notice" style="display:none"></span>
   </div>
   <script src="js/bind_polyfill.js"></script>
   <script src="js/classlist_polyfill.js"></script>
@@ -118,11 +135,24 @@
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-88082187-1', 'auto');
   ga('send', 'pageview');
-  addToHomescreen({
-    appID: 'io.github.ymfa.phd2048',
-    skipFirstVisit: true,
-    maxDisplayCount: 1
-  });
+  if (in_wechat) {
+    var wxNotice = document.getElementById('wx-notice');
+    wxNotice.style.display = "";
+    wxNotice.innerHTML = wxNoticeContent;
+    var fbButtons = document.querySelectorAll('.fb-share-button');
+    for (var i = 0; i < fbButtons.length; i++){
+      fbButtons[i].parentNode.removeChild(fbButtons[i]);
+    }
+    var twButton = document.querySelector('.share-tw');
+    twButton.parentNode.removeChild(twButton);
+  }
+  else {
+    addToHomescreen({
+      appID: 'io.github.ymfa.phd2048',
+      skipFirstVisit: false,
+      maxDisplayCount: 3
+    });
+  }
   </script>
 </body>
 </html>

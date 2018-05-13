@@ -185,3 +185,5 @@ function play_in_chinese(){
   create_switch_en();
   window.game.storageManager.storage.setItem('lang', 'zh');
 }
+
+var wxNoticeContent = "<br><strong class='important'>微信用户:</strong> 用浏览器打开, 可以将本游戏安装到手机桌面.<br>长按二维码关注作者公众号:<br><img src='meta/wx-qrcode.jpg' width='100px'/>";

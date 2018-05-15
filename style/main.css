@@ -250,7 +250,7 @@ hr {
     .game-message a.keep-playing-button {
       display: none; }
   .game-message .score-sharing {
-    display: inline-block;
+    margin-top: 10px;
     vertical-align: middle;
     margin-left: 10px; }
   .game-message.game-won {

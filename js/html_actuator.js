@@ -197,9 +197,15 @@ HTMLActuator.prototype.message = function (ended) {
   if (in_wechat) {
     this.sharingContainer.appendChild(this.scoreWeChatButton());
   }
-  else if (typeof twttr !== "undefined") {
-    this.sharingContainer.appendChild(this.scoreTweetButton());
-    twttr.widgets.load();
+  else {
+    //if (typeof FB !== "undefined") {
+    //  this.sharingContainer.appendChild(this.scoreFbButton());
+    //  FB.XFBML.parse(this.sharingContainer);
+    //}
+    if (typeof twttr !== "undefined") {
+      this.sharingContainer.appendChild(this.scoreTweetButton());
+      twttr.widgets.load();
+    }
   }
 };
 
@@ -223,6 +229,30 @@ HTMLActuator.prototype.scoreTweetButton = function () {
   tweet.setAttribute("data-text", text);
 
   return tweet;
+};
+
+HTMLActuator.prototype.scoreFbButton = function () {
+  var level = "phd";
+  if (!window.game.won) {
+    if (window.game.maxTile >= 1024) level = "1024";
+    else if(window.game.maxTile >= 512) level = "512";
+    else level = "cpgs";
+  }
+
+  var fbButton = document.createElement("div");
+  fbButton.classList.add("fb-share-button");
+  fbButton.setAttribute("data-href", "http://ymfa.github.io/phd-2048/meta/fb-" + level + ".html");
+  fbButton.setAttribute("data-layout", "button_count");
+  fbButton.setAttribute("data-size", "large")
+  
+  var fbButtonLink = document.createElement("a");
+  fbButtonLink.classList.add("fb-xfbml-parse-ignore");
+  fbButtonLink.href = "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fymfa.github.io%2Fphd-2048%2Fmeta%2Ffb-" + level + ".html&amp;src=sdkpreparse";
+  fbButtonLink.target = "_blank";
+  fbButtonLink.textContent = "Share";
+
+  fbButton.appendChild(fbButtonLink);
+  return fbButton;
 };
 
 HTMLActuator.prototype.scoreWeChatButton = function () {

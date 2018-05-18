@@ -198,13 +198,15 @@ HTMLActuator.prototype.message = function (ended) {
     this.sharingContainer.appendChild(this.scoreWeChatButton());
   }
   else {
-    //if (typeof FB !== "undefined") {
-    //  this.sharingContainer.appendChild(this.scoreFbButton());
-    //  FB.XFBML.parse(this.sharingContainer);
-    //}
+    if (typeof FB !== "undefined") {
+      var fbButton = this.scoreFbButton();
+      this.sharingContainer.appendChild(fbButton);
+      FB.XFBML.parse(fbButton);
+    }
     if (typeof twttr !== "undefined") {
-      this.sharingContainer.appendChild(this.scoreTweetButton());
-      twttr.widgets.load();
+      var twButton = this.scoreTweetButton();
+      this.sharingContainer.appendChild(twButton);
+      twttr.widgets.load(twButton);
     }
   }
 };
@@ -228,7 +230,9 @@ HTMLActuator.prototype.scoreTweetButton = function () {
   var text = val2tweet(window.game.maxTile).format(this.score);
   tweet.setAttribute("data-text", text);
 
-  return tweet;
+  var twContainer = document.createElement("div");
+  twContainer.appendChild(tweet);
+  return twContainer;
 };
 
 HTMLActuator.prototype.scoreFbButton = function () {
@@ -252,7 +256,9 @@ HTMLActuator.prototype.scoreFbButton = function () {
   fbButtonLink.textContent = "Share";
 
   fbButton.appendChild(fbButtonLink);
-  return fbButton;
+  var fbContainer = document.createElement("div");
+  fbContainer.appendChild(fbButton);
+  return fbContainer;
 };
 
 HTMLActuator.prototype.scoreWeChatButton = function () {

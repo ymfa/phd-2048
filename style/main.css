@@ -253,6 +253,11 @@ hr {
     margin-top: 10px;
     vertical-align: middle;
     margin-left: 10px; }
+  .game-message .score-sharing div {
+    display: inline-block;
+    margin: 0 1px;}
+  .twitter-tweet-button {
+    vertical-align: text-bottom;}
   .game-message.game-won {
     background: rgba(237, 194, 46, 0.5);
     color: #f9f6f2; }

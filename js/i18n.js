@@ -7,7 +7,9 @@ function update_captions(){
       "<span style='font-size:11px'>Experiment</span>", "Paper",
       "<span style='font-size:11px'>Conference</span>", "Viva", "PhD",
       "<span style='font-size:smaller'>Postdoc</span>",
-      "<span style='font-size:smaller'>Lecturer</span>", "Reader", "Prof."];
+      "<span style='font-size:smaller'>Lecturer</span>", "Reader", "Prof.",
+      "<span style='font-size:11px;display:inline-block;line-height:11px;vertical-align:middle'>Doctoral Supervisor</span>",
+      "<span style='font-size:smaller'>Principal</span>"];
     captions_rel = ["<span style='font-size:9px;'>Relationship</span>",
       "<span style='font-size:11px;'>Break-up</span>"];
   }
@@ -122,7 +124,7 @@ function use_simplified(){
   captions = ["Coffee", "Panini",
     "想法", "代码", "<span style='display:inline-block;line-height:30px;vertical-align:middle'>深度<br>学習</span>", "见导师",
     "实验", "Paper", "会议", "答辩", "PhD",
-    "薄厚", "僵尸", "Reader", "叫兽"];
+    "薄厚", "僵尸", "Reader", "叫兽", "驳倒", "嚣张"];
   captions_rel = ["恋爱", "分手"];
   caption_garbage = "垃圾";
   game_alt_title = "爱";
@@ -137,7 +139,7 @@ function use_traditional(){
   captions = ["Coffee", "Panini",
     "想法", "原始碼", "<span style='display:inline-block;line-height:30px;vertical-align:middle'>深度<br>學習</span>", "見導師",
     "實驗", "Paper", "會議", "答辯", "PhD",
-    "薄厚", "老屍", "Reader", "叫獸"];
+    "薄厚", "老屍", "Reader", "叫獸", "駁倒", "囂張"];
   captions_rel = ["戀愛", "分手"];
   caption_garbage = "垃圾";
   game_alt_title = "愛";

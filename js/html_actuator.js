@@ -182,7 +182,7 @@ HTMLActuator.prototype.refreshRel = function (remainingTime) {
   }
   else{
     this.titleBar.textContent = game_title;
-    this.statusBar.textContent = "Move the bricks to complete your PhD.";
+    this.statusBar.textContent = "Move the bricks to ship your Product.";
     this.progressBar.textContent = "";
     this.progressBar.style.display = "none";
     this.progressBar.style.width = "0";
